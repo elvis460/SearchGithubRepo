@@ -1,13 +1,20 @@
 <% if repos %>
   <% rows = format_data(repos) %>
-
   <% if rows.size.zero? %>
-    <h1> No Result </h1>
+    <h4 class="text-center"> No Result.</h4>
   <% else %>
-    <% rows.each do |repo| %>
-      <p><%= repo %></p>
-    <% end %>
+    <div class="list-group">
+      <% rows.each do |repo| %>
+        <a href="<%=repo[:url]%>" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%=repo[:name]%></h5>
+            <small><%=repo[:stars]%> stars</small>
+          </div>
+          <p class="mb-1"><%=repo[:description]%></p>
+        </a>
+      <% end %>
+    </div>
   <% end %>
 <% else %>
-  <h1> Please input repo name to search</h1>
+  <h4 class="text-center"> Please input repo name to search</h4>
 <% end %>

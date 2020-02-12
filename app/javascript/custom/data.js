@@ -1,4 +1,4 @@
-$(() =>
+$(() => {
 	$('#search-btn').on('click', () => {
 		const query = $('#search-input').val();
 
@@ -6,10 +6,9 @@ $(() =>
       method: 'GET',
 		  url: URL,
       data: { query: query }
-		}).done( () => {
-			console.log('success');
-		}).fail( () => {
-   		console.log( "error" );
+		}).done(() => {
+		}).fail(() => {
+			$('#repo-secion').html('<h4 class="text-center">Someting went wrong, plz try it again.</h4>');
   	})
-	})
-);
+	});
+});
