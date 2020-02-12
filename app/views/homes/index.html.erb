@@ -1,2 +1,7 @@
 <h1>Welcome to Github Repo Searcher</h1>
-<input type="text" id="search-input"> <button>GO</button>
+<input type="text" id="search-input"> <button id="search-btn">GO</button>
+
+
+<div id="repo-secion">
+  <%= render partial: 'apis/data', locals: { repos: @repos }  %>
+</div>

@@ -1,0 +1,13 @@
+<% if repos %>
+  <% rows = format_data(repos) %>
+
+  <% if rows.size.zero? %>
+    <h1> No Result </h1>
+  <% else %>
+    <% rows.each do |repo| %>
+      <p><%= repo %></p>
+    <% end %>
+  <% end %>
+<% else %>
+  <h1> Please input repo name to search</h1>
+<% end %>

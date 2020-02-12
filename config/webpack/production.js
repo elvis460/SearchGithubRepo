@@ -1,4 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
+process.env.URL = 'http://localhost/apis'
 
 const environment = require('./environment')
 

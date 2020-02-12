@@ -11,9 +11,15 @@ class ApisController < ApplicationController
         }
       })
 
-      @repos = format_data(JSON.parse(response.body))
+      @repos = JSON.parse(response.body)
     else
       @repos = []
+    end
+
+    respond_to do |format|
+      format.js{
+        render :template => 'apis/data.js.erb'
+      }
     end
   rescue RestClient::ExceptionWithResponse => er
     Rails.logger.error er.to_s
