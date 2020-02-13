@@ -6,7 +6,7 @@ class ApisController < ApplicationController
     if query
       response = RestClient.get('https://api.github.com/search/repositories', { 
         params: { 
-          q: "#{query} in:name",
+          q: "#{query} in:name&sort=stars&order=desc",
           page: page
         }
       })
