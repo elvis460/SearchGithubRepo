@@ -3,6 +3,7 @@
   <% if rows.size.zero? %>
     <h4 class="text-center"> No Result.</h4>
   <% else %>
+    <!-- Repo list -->
     <div class="list-group">
       <% rows.each do |repo| %>
         <a href="<%=repo[:url]%>" class="list-group-item list-group-item-action">
@@ -13,6 +14,22 @@
           <p class="mb-1"><%=repo[:description]%></p>
         </a>
       <% end %>
+    </div>
+    <!-- pagination -->
+    <span id="current-page" data-page="<%=@current_page%>"></span>
+    <div class="repo-pages text-center">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <% if @current_page.to_i >1 %>
+        <li class="page-item">
+          <button class="page-link" id="previous-page">Previous</button>
+        </li>
+        <% end %>
+        <li class="page-item">
+          <button class="page-link"id="next-page">Next</button>
+        </li>
+      </ul>
+    </nav>
     </div>
   <% end %>
 <% else %>

@@ -1,17 +1,20 @@
 class ApisController < ApplicationController
   def index
     query = params[:query]
-    page = params[:page] || 1
+    @current_page = params[:page] || 1
 
     if query
       response = RestClient.get('https://api.github.com/search/repositories', { 
         params: { 
-          q: "#{query} in:name&sort=stars&order=desc",
-          page: page
+          q: "#{query} in:name",
+          sort: 'stars',
+          order: 'desc',
+          page: @current_page
         }
       })
 
       @repos = JSON.parse(response.body)
+      Rails.logger.debug "======>#{@repos}"
     else
       @repos = []
     end

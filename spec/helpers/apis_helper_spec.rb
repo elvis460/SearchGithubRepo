@@ -1,64 +1,9 @@
-# Getting Started
+require 'rails_helper'
 
-* Ruby version: 2.5.4
-
-* Rails version: 6.0.2.1
-
-
-### Install required ruby gems
-
-bundle the ruby gems
-
-```
-$ bundle install
-```
-
-may need to install dependencies
-
-```
-$ yarn install
-```
-
-## The website is working now.
-
-```
-$ rails s
-```
-
-# Running the tests
-
-```
-$ rspec
-```
-
-# API
-
-***Now support only search by Repository name ***
-
-## Search Github Repository
-
-### Request ###
-
-`GET /apis`
-
-### Headers ###
-
-
-### Params ###
-
-```
-{
-  query: 'Ruby',
-  page: 1
-}
-```
-
-### Response ###
-
-**Code:** `200 (OK)` **Content:** `JSON`
-
-```json
-{
+RSpec.describe ApisHelper, type: :helper do
+  context '#format_data' do
+    let(:data) do
+      {
         "total_count" => 142037,
         "incomplete_results" => false,
         "items" => [
@@ -81,4 +26,18 @@ $ rspec
           }
         ]
       }
-```
+    end
+    it 'return formatted data' do
+      expect(format_data(data)).to eq (
+        [
+          {
+            name: 'ruby',
+            url: 'https://github.com/ruby/ruby',
+            stars: 16562,
+            description: 'The Ruby Programming Language [mirror]'
+          }
+        ]
+      )
+    end
+  end
+end

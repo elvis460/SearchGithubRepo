@@ -16,7 +16,8 @@ RSpec.describe ApisController, type: :controller do
 
     context 'with params' do
       let(:query) { 'test' }
-      let(:request_url) { "https://api.github.com/search/repositories?page=1&q=#{query}%20in:name%26sort=stars%26order=desc" }
+      let(:page) { 3 }
+      let(:request_url) { "https://api.github.com/search/repositories?order=desc&page=#{page}&q=#{query}%20in:name&sort=stars" }
 
       context 'GithubAPI return 200' do
         it 'render partial' do
@@ -25,7 +26,7 @@ RSpec.describe ApisController, type: :controller do
             body: { items: [] }.to_json,
           )
 
-          get :index, params: { query: query }, xhr: true
+          get :index, params: { query: query, page: page }, xhr: true
           expect(response).to render_template('apis/data.js.erb')
         end
       end
@@ -37,16 +38,16 @@ RSpec.describe ApisController, type: :controller do
             body: "",
           )
 
-          get :index, params: { query: query }, xhr: true
+          get :index, params: { query: query, page: page }, xhr: true
           expect(response).to have_http_status(400)
         end
       end
 
       context 'raise StandardError' do
-        it 'return 400' do
+        it 'return 500' do
           stub_request(:get, request_url).and_raise(StandardError)
 
-          get :index, params: { query: query }, xhr: true
+          get :index, params: { query: query, page: page }, xhr: true
           expect(response).to have_http_status(500)
         end
       end
